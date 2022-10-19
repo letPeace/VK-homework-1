@@ -1,20 +1,17 @@
 package entities;
 
+import lombok.AllArgsConstructor;
 import lombok.Value;
 
+import java.util.Date;
+
 @Value
+@AllArgsConstructor
 public class Book {
 
     String title;
     Author author;
-    String publicationDate; // some date class is expected to be used here
+    Date publicationDate; // some date class is expected to be used here
     String originalLanguage;
-
-    public Book(String title, Author author, String publicationDate, String originalLanguage) {
-        this.title = title;
-        this.author = author;
-        this.publicationDate = publicationDate;
-        this.originalLanguage = originalLanguage;
-    }
 
 }

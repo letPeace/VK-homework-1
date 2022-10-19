@@ -14,6 +14,8 @@ public class Application {
         // create a library
         LibraryFabric libraryFabric = new LibraryFabric();
         Library library = libraryFabric.create();
+        // hint a user to input an author's name
+        System.out.println("Enter an author's name to get their books:");
         // read an author's name
         Scanner input = new Scanner(System.in);
         String authorName = input.nextLine(); // probably it has to be in WHILE
@@ -24,8 +26,8 @@ public class Application {
         GsonBuilder gsonBuilder = new GsonBuilder();
         Gson gson = gsonBuilder.create();
         // print these books
-        authorBooks.forEach(book -> System.out.println(gson.toJson(book)));
         if(authorBooks.isEmpty()) System.out.println("Such author does not exist!");
+        else System.out.println(gson.toJson(authorBooks));
 
     }
 

@@ -2,29 +2,35 @@ package entities;
 
 import lombok.Value;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Value
 public class Library {
 
-    Set<Book> books;
+    Map<String, Set<Book>> library;
 
     public Library(){
-        this(new HashSet<>());
+        this(new HashMap<>());
     }
 
-    public Library(Set<Book> books) {
-        this.books = books;
+    public Library(Map<String, Set<Book>> library) {
+        this.library = library;
     }
 
-    public void addBook(Book book){
-        books.add(book);
+    public void addBook(String authorName, Book book){
+        if(library.containsKey(authorName)){
+            Set<Book> authorBooks = library.get(authorName);
+            authorBooks.add(book);
+        } else{
+            library.put(authorName, new HashSet<>(Collections.singleton(book)));
+        }
     }
 
     public Set<Book> getAuthorBooks(final String authorName) {
-        return books.stream()
+        return library
+                .getOrDefault(authorName.toLowerCase(), new HashSet<>())
+                .stream()
                 .filter(book -> book.getAuthor().getName().equalsIgnoreCase(authorName))
                 .collect(Collectors.toSet());
     }
